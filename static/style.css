@@ -1,0 +1,686 @@
+/* =========================================================
+   IMPORTAÇÃO DE FONTES
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Fonte usada em títulos */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&display=swap');
+
+/* =========================================================
+   CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
+body {
+    background-color: #F4F7FA;
+    color: #2F3A45;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+.sistema-largura {
+    max-width: 900px;
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+/* Barra superior do sistema */
+.navbar-sistema {
+    background-color: #12355B;
+    color: #FFFFFF;
+    padding: 16px 0;
+}
+
+/* Bolinha com a letra R da marca */
+.logo-sistema {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #1D70A2;
+    color: #FFFFFF;
+
+    /* Flexbox usado para centralizar a letra dentro do círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.marca-sistema strong {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+}
+
+/* Link "Voltar ao início" das telas internas */
+.link-navbar {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.link-navbar:hover {
+    color: #FFFFFF;
+}
+
+/* =========================================================
+   TELA INICIAL
+   ========================================================= */
+
+/* Card principal da página inicial */
+.hero-card {
+    background: linear-gradient(135deg, #12355B 0%, #1D70A2 100%);
+    color: #FFFFFF;
+    border-radius: 24px;
+    padding: 42px;
+
+    /* position relative permite usar o detalhe decorativo com ::after. */
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-card::after {
+    content: "";
+    width: 260px;
+    height: 260px;
+    background-color: rgba(123, 174, 127, 0.20);
+    border-radius: 50%;
+
+    position: absolute;
+    top: -110px;
+    right: -70px;
+}
+
+/* Etiqueta "Diagnóstico Digital" */
+.tag-hero {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.92);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Título grande da tela inicial */
+.hero-card h1 {
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 16px;
+
+    /* z-index garante que o texto fique acima do detalhe decorativo */
+    position: relative;
+    z-index: 1;
+}
+
+/* Subtítulo da tela inicial */
+.hero-subtitulo {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 16px;
+    max-width: 530px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Texto explicativo do card principal */
+.hero-texto {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 14px;
+    max-width: 570px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Classes compartilhadas por vários cards do sistema */
+.area-card,
+.cta-card,
+.card-pergunta,
+.criterio-card,
+.resultado-card,
+.diagnostico-geral-card,
+.confirmacao-card {
+    background-color: #FFFFFF;
+    border: 1px solid #DDE4EC;
+    border-radius: 16px;
+}
+
+/* Cards das quatro áreas avaliadas */
+.area-card {
+    padding: 22px;
+    display: flex;
+    gap: 14px;
+}
+
+/* Ícone de cada área */
+.area-icone {
+    font-size: 24px;
+    line-height: 1;
+}
+
+/* Título do card de área */
+.area-card h2 {
+    color: #12355B;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/* Texto do card de área */
+.area-card p {
+    color: #8A97A4;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+/* Card inferior com aviso e botão de iniciar */
+.cta-card {
+    padding: 24px;
+}
+
+/* Texto "20 perguntas · leitura guiada" */
+.tempo-diagnostico {
+    color: #2F3A45;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Aviso de que o MVP não substitui consultoria completa */
+.aviso-diagnostico {
+    color: #8A97A4;
+    font-size: 13px;
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+/* Botão principal usado para avançar ou iniciar fluxo */
+.btn-primario {
+    background-color: #1D70A2;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 24px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.btn-primario:hover {
+    background-color: #185F8A;
+    color: #FFFFFF;
+}
+
+/* Botão secundário usado para ações menos críticas */
+.btn-secundario {
+    background-color: #FFFFFF;
+    color: #12355B;
+    border: 1.5px solid #12355B;
+    border-radius: 12px;
+    padding: 13px 24px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.btn-secundario:hover {
+    background-color: #F4F7FA;
+    color: #12355B;
+    border-color: #12355B;
+}
+
+/* Botão de atenção usado na confirmação de reinício */
+.btn-alerta {
+    background-color: #12355B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 24px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.btn-alerta:hover {
+    background-color: #0E2A47;
+    color: #FFFFFF;
+}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.rodape-sistema {
+    color: #8A97A4;
+    text-align: center;
+    font-size: 12px;
+    padding: 18px 0;
+}
+
+/* =========================================================
+   QUESTIONÁRIO
+   ========================================================= */
+
+/* Largura específica da área do questionário: Ela é menor que a tela inicial para facilitar leitura */
+.questionario-area {
+    max-width: 720px;
+}
+
+/* Badge da área atual da pergunta */
+.badge-area {
+    background-color: #E8F4FD;
+    color: #1D70A2;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Texto "Pergunta X de 20" */
+.contador-pergunta {
+    color: #8A97A4;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Estrutura base das barras visuais */
+.barra-progresso,
+.barra-score,
+.barra-total {
+    background-color: #DDE4EC;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+/* Barra de progresso do questionário */
+.barra-progresso {
+    height: 6px;
+}
+
+/* Parte preenchida da barra de progresso */
+.barra-progresso-preenchida {
+    height: 6px;
+    background-color: #1D70A2;
+    border-radius: 999px;
+}
+
+/* Card da pergunta atual */
+.card-pergunta {
+    padding: 32px;
+    box-shadow: 0 2px 12px rgba(18, 53, 91, 0.06);
+}
+
+/* Texto da pergunta */
+.card-pergunta h1 {
+    color: #12355B;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin-bottom: 26px;
+}
+
+/* Área das três opções de resposta */
+.opcoes-resposta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+/* Cada opção de resposta: O label permite clicar no bloco inteiro, não só na bolinha do radio */
+.opcao-resposta {
+    background-color: #F4F7FA;
+    border: 1.5px solid #DDE4EC;
+    border-radius: 12px;
+    padding: 14px 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.opcao-resposta:hover {
+    border-color: #1D70A2;
+}
+
+/* Cor da bolinha do radio quando marcada */
+.opcao-resposta input {
+    accent-color: #1D70A2;
+}
+
+/* Alerta quando o usuário tenta continuar sem marcar resposta */
+.alerta-erro {
+    background-color: #FFF0F0;
+    border: 1px solid #F5C6CB;
+    color: #B42318;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+/* Card de critérios da pergunta */
+.criterio-card {
+    background-color: #EBF4FB;
+    border-color: #C8DFF0;
+    padding: 22px;
+}
+
+/* Título "Critério de avaliação" */
+.criterio-card h2 {
+    color: #1D70A2;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 14px;
+}
+
+/* Textos dos critérios */
+.criterio-card p {
+    color: #4A5568;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+/* Destaque das palavras 'Não, Parcialmente e Sim' */
+.criterio-card strong {
+    color: #2F3A45;
+}
+
+/* =========================================================
+   RESULTADOS
+   ========================================================= */
+
+.resultado-area {
+    max-width: 720px;
+}
+
+.cabecalho-resultado p {
+    color: #1D70A2;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.cabecalho-resultado h1 {
+    color: #12355B;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.lista-resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.resultado-card {
+    padding: 24px;
+    box-shadow: 0 1px 8px rgba(18, 53, 91, 0.05);
+}
+
+.resultado-card-menor {
+    padding: 20px;
+}
+
+.resultado-card h2 {
+    color: #12355B;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.resultado-icone {
+    font-size: 20px;
+}
+
+/* Pontuação da área, exemplo: 6 de 10 */
+.pontuacao-area {
+    color: #1D70A2;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+/* Texto menor dentro da pontuação */
+.pontuacao-area small {
+    color: #8A97A4;
+    font-weight: 500;
+}
+
+.barra-score {
+    height: 8px;
+}
+
+.barra-score-preenchida {
+    height: 8px;
+    background-color: #1D70A2;
+    border-radius: 999px;
+}
+
+.diagnostico-texto {
+    color: #4A5568;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+/* Card azul da pontuação total */
+.card-total {
+    background: linear-gradient(135deg, #12355B 0%, #1D70A2 100%);
+    color: #FFFFFF;
+    border-radius: 24px;
+    padding: 32px;
+}
+
+.numero-total {
+    font-size: 56px;
+    line-height: 1;
+    font-weight: 800;
+}
+
+.numero-total-menor {
+    font-size: 42px;
+}
+
+/* Texto /40 */
+.total-maximo {
+    color: rgba(255, 255, 255, 0.70);
+    font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 4px;
+}
+
+/* Nível de maturidade digital dentro do card azul */
+.card-total h2 {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+/* Rótulos pequenos dentro do card total */
+.rotulo-total {
+    color: rgba(255, 255, 255, 0.70);
+    font-size: 12px;
+}
+
+.barra-total {
+    background-color: rgba(255, 255, 255, 0.22);
+    height: 8px;
+}
+
+.barra-total-preenchida {
+    height: 8px;
+    background-color: #7BAE7F;
+    border-radius: 999px;
+}
+
+.diagnostico-geral-card {
+    padding: 22px;
+}
+
+.diagnostico-geral-card h2 {
+    color: #8A97A4;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 10px;
+}
+
+.diagnostico-geral-card p {
+    color: #2F3A45;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Card do gargalo principal */
+.gargalo-card {
+    background-color: #FFF8E6;
+    border: 1.5px solid #E6A817;
+    border-radius: 16px;
+    padding: 22px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+/* Versão menor do card de gargalo usada no diagnóstico completo */
+.gargalo-card-menor {
+    padding: 16px;
+    gap: 12px;
+}
+
+.gargalo-icone {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.gargalo-card h2 {
+    color: #8A6200;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+}
+
+.gargalo-area {
+    color: #12355B;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.gargalo-card p {
+    color: #4A5568;
+    font-size: 13px;
+}
+
+/* Aviso final do diagnóstico completo */
+.aviso-final {
+    color: #8A97A4;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   CONFIRMAÇÃO DE REINÍCIO
+   ========================================================= */
+
+/* Área que centraliza o card de confirmação */
+.confirmacao-area {
+    max-width: 720px;
+    min-height: calc(100vh - 64px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirmacao-card {
+    max-width: 480px;
+    padding: 42px;
+    box-shadow: 0 4px 24px rgba(18, 53, 91, 0.08);
+}
+
+.icone-confirmacao {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background-color: #EBF4FB;
+    color: #1D70A2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.confirmacao-card h1 {
+    color: #12355B;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.confirmacao-card p {
+    color: #4A5568;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE BÁSICA
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .hero-card,
+    .card-pergunta,
+    .card-total,
+    .confirmacao-card {
+        padding: 26px;
+    }
+
+    .hero-card h1 {
+        font-size: 32px;
+    }
+
+    .card-pergunta h1 {
+        font-size: 19px;
+    }
+
+    .link-navbar {
+        font-size: 12px;
+    }
+
+    .numero-total {
+        font-size: 44px;
+    }
+}

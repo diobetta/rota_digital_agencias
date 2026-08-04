@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado | Rota Digital para Agências</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar-sistema"> <!-- Navbar das telas de resultado -->
+        <div class="container sistema-largura d-flex align-items-center justify-content-between">
+            <div class="marca-sistema d-flex align-items-center gap-3">
+                <div class="logo-sistema">R</div>
+                <strong>Rota Digital para Agências</strong>
+            </div>
+            <a href="{{ url_for('confirmar_reinicio') }}" class="link-navbar">← Voltar ao início</a>
+        </div>
+    </header>
+    <main class="container sistema-largura resultado-area py-5">
+        <!-- =========================================================
+             ETAPA 1 DO RESULTADO
+             Mostra apenas a pontuação e diagnóstico por área
+             A variável etapa_resultado vem do app.py
+        ========================================================== -->
+        {% if etapa_resultado == 'areas' %}
+            <section class="cabecalho-resultado mb-4">
+                <p>Resultado — Etapa 1 de 3</p>
+                <h1>Interpretação da Pontuação por Área</h1>
+            </section>
+            <section class="lista-resultados mb-4"> <!-- Lista de cards com as quatro áreas: O for percorre o dicionário pontuacao_areas enviado pelo app.py -->
+                {% for area, pontos in pontuacao_areas.items() %}
+                    <article class="resultado-card">
+                        <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="resultado-icone">
+                                    {% if area == 'Atendimento / Vendas' %}
+                                        💬
+                                    {% endif %}
+
+                                    {% if area == 'Comercial' %}
+                                        📊
+                                    {% endif %}
+
+                                    {% if area == 'Operação' %}
+                                        ⚙️
+                                    {% endif %}
+
+                                    {% if area == 'Dados' %}
+                                        📁
+                                    {% endif %}
+                                </span>
+                                <h2>{{ area }}</h2>
+                            </div>
+                            <!-- Pontuação da área: Aqui a pontuação irá aparecer, pois o questionário foi finalizado -->
+                            <span class="pontuacao-area">
+                                {{ pontos }} <small>de 10</small>
+                            </span>
+                        </div>
+                        <!-- Barra visual da pontuação da área. Como cada área vale até 10 pontos, pontos * 10 vira porcentagem -->
+                        <div class="barra-score">
+                            <div class="barra-score-preenchida" style="width: {{ pontos * 10 }}%;"></div>
+                        </div>
+                        <p class="diagnostico-texto mt-3 mb-0">
+                            {{ diagnosticos_areas[area] }}
+                        </p>
+                    </article>
+                {% endfor %}
+            </section>
+            <a href="{{ url_for('resultado_geral') }}" class="btn btn-primario w-100">Continuar para Pontuação Geral</a>
+        {% endif %}
+        <!-- =========================================================
+             ETAPA 2 DO RESULTADO
+             Mostra pontuação geral, nível de maturidade, diagnóstico geral e gargalo principal
+        ========================================================== -->
+        {% if etapa_resultado == 'geral' %}
+            <section class="cabecalho-resultado mb-4">
+                <p>Resultado — Etapa 2 de 3</p>
+                <h1>Interpretação da Pontuação Geral</h1>
+            </section>
+            <section class="card-total mb-4">
+                <div class="d-flex align-items-end gap-2 mb-1">
+                    <span class="numero-total">{{ pontuacao_total }}</span>
+                    <span class="total-maximo">/ 40</span>
+                </div>
+                <!-- Nível de maturidade digital definido pelo app.py -->
+                <h2>{{ nivel_maturidade }}</h2>
+                <!-- Barra de pontuação geral. Aqui o cálculo transforma a pontuação total em porcentagem -->
+                <div class="barra-total mt-3">
+                    <div class="barra-total-preenchida" style="width: {{ (pontuacao_total / 40 * 100)|round(0) }}%;"></div>
+                </div>
+            </section>
+            <section class="diagnostico-geral-card mb-4"> <!-- Diagnóstico geral -->
+                <h2>Diagnóstico geral</h2>
+                <p class="mb-0">{{ diagnostico_geral }}</p>
+            </section>
+            <section class="gargalo-card mb-4"> <!-- Gargalo principal -->
+                <div class="gargalo-icone">⚠️</div>
+                <div>
+                    <h2>Gargalo principal identificado</h2>
+                    <p class="gargalo-area mb-1">
+                        {% if gargalo_principal == 'Atendimento / Vendas' %}
+                            💬
+                        {% endif %}
+
+                        {% if gargalo_principal == 'Comercial' %}
+                            📊
+                        {% endif %}
+
+                        {% if gargalo_principal == 'Operação' %}
+                            ⚙️
+                        {% endif %}
+
+                        {% if gargalo_principal == 'Dados' %}
+                            📁
+                        {% endif %}
+
+                        {{ gargalo_principal }}
+                    </p>
+                    <p class="mb-0">Esta área concentra a maior oportunidade de evolução digital da agência.</p>
+                </div>
+            </section>
+            <a href="{{ url_for('resultado_completo') }}" class="btn btn-primario w-100">Ver Diagnóstico Completo</a>
+        {% endif %}
+        <!-- =========================================================
+             ETAPA 3 DO RESULTADO
+             Mostra o diagnóstico consolidado
+        ========================================================== -->
+        {% if etapa_resultado == 'completo' %}
+            <section class="cabecalho-resultado mb-4">
+                <p>Resultado — Etapa 3 de 3</p>
+                <h1>Diagnóstico Completo</h1>
+            </section>
+            <section class="card-total mb-4">
+                <div class="d-flex align-items-center justify-content-between gap-3 mb-3"> <!-- Pontuação total -->
+                    <div>
+                        <p class="rotulo-total mb-1">Pontuação total</p>
+                        <div>
+                            <span class="numero-total numero-total-menor">{{ pontuacao_total }}</span>
+                            <span class="total-maximo">/ 40</span>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <p class="rotulo-total mb-1">Maturidade digital</p>
+                        <h2 class="mb-0">{{ nivel_maturidade }}</h2>
+                    </div>
+                </div>
+                <!-- Barra de pontuação geral -->
+                <div class="barra-total">
+                    <div class="barra-total-preenchida" style="width: {{ (pontuacao_total / 40 * 100)|round(0) }}%;"></div>
+                </div>
+            </section>
+            <section class="diagnostico-geral-card mb-4"> <!-- Diagnóstico geral -->
+                <h2>Diagnóstico geral</h2>
+                <p class="mb-0">{{ diagnostico_geral }}</p>
+            </section>
+            <section class="gargalo-card gargalo-card-menor mb-4"> <!-- Gargalo principal resumido -->
+                <div class="gargalo-icone">⚠️</div>
+                <p class="mb-0">
+                    <strong>Gargalo principal:</strong>
+                    {% if gargalo_principal == 'Atendimento / Vendas' %}
+                        💬
+                    {% endif %}
+
+                    {% if gargalo_principal == 'Comercial' %}
+                        📊
+                    {% endif %}
+
+                    {% if gargalo_principal == 'Operação' %}
+                        ⚙️
+                    {% endif %}
+
+                    {% if gargalo_principal == 'Dados' %}
+                        📁
+                    {% endif %}
+
+                    {{ gargalo_principal }}
+                </p>
+            </section>
+            <section class="lista-resultados mb-4"> <!-- Cards das áreas novamente, agora no diagnóstico completo -->
+                {% for area, pontos in pontuacao_areas.items() %}
+                    <article class="resultado-card resultado-card-menor">
+                        <div class="d-flex align-items-start justify-content-between gap-3 mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="resultado-icone">
+                                    {% if area == 'Atendimento / Vendas' %}
+                                        💬
+                                    {% endif %}
+
+                                    {% if area == 'Comercial' %}
+                                        📊
+                                    {% endif %}
+
+                                    {% if area == 'Operação' %}
+                                        ⚙️
+                                    {% endif %}
+
+                                    {% if area == 'Dados' %}
+                                        📁
+                                    {% endif %}
+                                </span>
+                                <h2>{{ area }}</h2>
+                            </div>
+                            <span class="pontuacao-area">
+                                {{ pontos }}<small>/10</small>
+                            </span>
+                        </div>
+                        <div class="barra-score">
+                            <div class="barra-score-preenchida" style="width: {{ pontos * 10 }}%;"></div>
+                        </div>
+                        <p class="diagnostico-texto mt-3 mb-0">
+                            {{ diagnosticos_areas[area] }}
+                        </p>
+                    </article>
+                {% endfor %}
+            </section>
+            <!-- Botão final: Leva para a rota reiniciar, que limpa a session no app.py -->
+            <a href="{{ url_for('reiniciar') }}" class="btn btn-secundario w-100">Reiniciar diagnóstico</a>
+            <p class="aviso-final">
+                O diagnóstico apresentado é uma leitura inicial com base nas respostas informadas.
+                O MVP não fornece plano de ação, recomendações detalhadas ou consultoria completa.
+            </p>
+        {% endif %}
+    </main>
+    <!-- Rodapé mostrado apenas na etapa final -->
+    {% if etapa_resultado == 'completo' %}
+        <footer class="rodape-sistema">
+            MVP - DIOVANNA OLIVEIRA BETTA COSTA - desenvolvido em Flask
+        </footer>
+    {% endif %}
+</body>
+</html>

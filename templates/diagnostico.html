@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico | Rota Digital para Agências</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar-sistema">
+        <div class="container sistema-largura d-flex align-items-center justify-content-between">
+            <div class="marca-sistema d-flex align-items-center gap-3">
+                <div class="logo-sistema">R</div>
+                <strong>Rota Digital para Agências</strong>
+            </div>
+            <a href="{{ url_for('confirmar_reinicio') }}" class="link-navbar">← Voltar ao início</a>
+        </div>
+    </header>
+    <main class="container sistema-largura questionario-area py-5">
+        <section class="questionario-topo mb-4"> <!-- Topo do questionário -->
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="badge-area"> <!-- Badge da área avaliada: O Jinja verifica qual é a área da pergunta atual e mostra um ícone correspondente -->
+                    {% if pergunta['area'] == 'Atendimento / Vendas' %}
+                        💬
+                    {% endif %}
+                    {% if pergunta['area'] == 'Comercial' %}
+                        📊
+                    {% endif %}
+                    {% if pergunta['area'] == 'Operação' %}
+                        ⚙️
+                    {% endif %}
+                    {% if pergunta['area'] == 'Dados' %}
+                        📁
+                    {% endif %}
+                    {{ pergunta['area'] }}
+                </span>
+                <span class="contador-pergunta">
+                    Pergunta {{ numero_pergunta }} de {{ total_perguntas }}
+                </span>
+            </div>
+            <div class="barra-progresso"> <!-- Barra de progresso: O width é preenchido com o percentual calculado no app.py -->
+                <div class="barra-progresso-preenchida" style="width: {{ progresso }}%;"></div>
+            </div>
+        </section>
+        <section class="card-pergunta mb-4"> <!-- Card principal da pergunta -->
+            <form action="{{ url_for('diagnostico') }}" method="POST"> <!-- Formulário que envia a resposta para a mesma rota /diagnostico > O app.py recebe essa resposta, salva na session e avança para a próxima pergunta -->
+                <input type="hidden" name="id_pergunta" value="{{ pergunta['id'] }}"> <!-- Campo escondido com o ID da pergunta atual -->
+                <h1>
+                    {{ pergunta['texto'] }}
+                </h1>
+                <div class="opcoes-resposta"> <!-- Opções de resposta: A pontuação não aparece aqui, o usuário vê apenas categorias -->
+                    <label class="opcao-resposta">
+                        <input type="radio" name="resposta" value="nao">
+                        <span>Não</span>
+                    </label>
+                    <label class="opcao-resposta">
+                        <input type="radio" name="resposta" value="parcialmente">
+                        <span>Parcialmente</span>
+                    </label>
+                    <label class="opcao-resposta">
+                        <input type="radio" name="resposta" value="sim">
+                        <span>Sim</span>
+                    </label>
+                </div>
+                <!-- Mensagem de erro -->
+                {% if erro %}
+                    <div class="alerta-erro">
+                        ⚠ {{ erro }}
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primario w-100">Continuar</button>
+            </form>
+        </section>
+        <section class="criterio-card"> <!-- Card com os critérios específicos da pergunta atual -->
+            <h2>Critério de avaliação</h2>
+            <p>
+                <strong>Não:</strong>
+                {{ pergunta['criterios']['nao'] }}
+            </p>
+            <p>
+                <strong>Parcialmente:</strong>
+                {{ pergunta['criterios']['parcialmente'] }}
+            </p>
+            <p class="mb-0">
+                <strong>Sim:</strong>
+                {{ pergunta['criterios']['sim'] }}
+            </p>
+        </section>
+    </main>
+</body>
+</html>
