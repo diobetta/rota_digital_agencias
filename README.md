@@ -396,7 +396,17 @@ rota_digital_agencias/
 
 ---
 
-## Como executar o projeto
+## Como acessar
+
+### Versão online
+
+Acesse:
+
+https://rota-digital-agencias.onrender.com/
+
+### Versão local
+
+Para rodar o projeto localmente, siga os passos abaixo:
 
 Para executar o sistema, é necessário ter o Python instalado.
 
